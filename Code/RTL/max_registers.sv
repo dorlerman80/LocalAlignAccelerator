@@ -35,15 +35,30 @@ import design_variables::*;
 	output logic [COL_BITS_WIDTH-1:0]       max_col
 );
 
+/*===============================SIGNALS=============================*/
+
+// 'COMPARE_UNITS' vectors of max of 4(holding index and value)
+logic  [COMPARE_UNITS-1:0][SCORE_WIDTH-1:0]   	   score_of_4;
+logic  [COMPARE_UNITS-1:0][ROW_BITS_WIDTH-1:0]     row_of_4;  
+logic  [COMPARE_UNITS-1:0][COL_BITS_WIDTH-1:0]     col_of_4;  
+
+// holding index and value of cur max
+logic [SCORE_WIDTH-1:0] 		new_max_score;
+logic [ROW_BITS_WIDTH-1:0] 		new_max_row;
+logic [COL_BITS_WIDTH-1:0] 		new_max_col;
+
+// max index registers
+logic [COL_BITS_WIDTH-1:0] max_col_reg;
+logic [ROW_BITS_WIDTH-1:0] max_row_reg;
+logic [SCORE_WIDTH-1:0] max_score_reg;
+
+// update
+logic en_update;
+
 /*===============================LOGIC===============================*/
 	
-//----------------MAX OF 'COMPARE_UNITS'--------------//
-
+//==============MAX OF 'COMPARE_UNITS'============//
 // Maximum of each unit holding 4 values each
-logic  [COMPARE_UNITS-1:0][SCORE_WIDTH-1:0]   	   score_of_4; // 'COMPARE_UNITS' values of 'SCORE_WIDTH' bits
-logic  [COMPARE_UNITS-1:0][ROW_BITS_WIDTH-1:0]     row_of_4;   // 'COMPARE_UNITS' values of 'ROW_BITS_WIDTH' bits
-logic  [COMPARE_UNITS-1:0][COL_BITS_WIDTH-1:0]     col_of_4;   // 'COMPARE_UNITS' values of 'COL_BITS_WIDTH' bits
-
 generate
 	for (genvar i = 0; i < COMPARE_UNITS; i++) begin : i_max_of_4
 			max_of_n 	
@@ -64,10 +79,6 @@ generate
 endgenerate
 
 // Maximum of 16 units holding the max of 4 values each
-logic [SCORE_WIDTH-1:0] 		new_max_score;
-logic [ROW_BITS_WIDTH-1:0] 		new_max_row;
-logic [COL_BITS_WIDTH-1:0] 		new_max_col;
-
 generate
 		max_of_n
 					#(	
@@ -83,11 +94,7 @@ generate
 						.max_n_col(new_max_col)
 					);
 endgenerate
-//-------------end MAX OF 'COMPARE_UNITS'-------------//
-logic [COL_BITS_WIDTH-1:0] max_col_reg;
-logic [ROW_BITS_WIDTH-1:0] max_row_reg;
-logic [SCORE_WIDTH-1:0] max_score_reg;
-logic en_update;
+//==================Registers Update================//
 
 // COL REG
 always_ff @(posedge clk or negedge rst_n) begin
@@ -128,11 +135,7 @@ end
 assign max_score = max_score_reg;
 
 
-
-//--------------------UPDATE ENABLE-------------------//
-assign en_update = ((new_max_score > max_score_reg) && wr_en_max) ? 1'b1 : 1'b0;
-
-
-
+//===================UPDATE ENABLE==================//
+assign en_update = ((new_max_score > max_score_reg) && wr_en_max);
 
 endmodule

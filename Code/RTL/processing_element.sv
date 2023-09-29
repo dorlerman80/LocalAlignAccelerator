@@ -59,7 +59,7 @@ max_inst (
 			.source(source)
 		 );
 
-assign zero_score_bit 	=	|score ? 1'b0 : 1'b1;
+assign zero_score_bit 	=	~|score;
 
 
 endmodule

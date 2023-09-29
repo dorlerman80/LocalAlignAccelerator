@@ -55,11 +55,20 @@ import design_variables::*;
 );
 
 /*==========================INTERNAL SIGNALS=========================*/
+// FSM
 typedef enum bit [1:0] {IDLE_ST = 2'b00, LOAD_SEQUENCES_ST = 2'b01, SCORES_CALC_ST = 2'b10, TRACEBACK_ST = 2'b11} STATE;
 STATE CUR_ST;
 STATE NEXT_ST;
-logic busy;
+
+// global counter
 logic [4:0] global_counter;
+logic busy;
+
+// Matrix memory
+logic [NUM_DIAGONALS-1:0] write_ctl_reg;
+
+// Traceback
+logic prev_en_traceback;
 
 /*===========================GLOBAL COUNTER==========================*/
 always_ff @(posedge clk or negedge rst_n) begin
@@ -266,8 +275,6 @@ end
 
 /*==============================MATRIX MEMORY============================*/
 //========= Memory Write =========//
-logic [NUM_DIAGONALS-1:0] write_ctl_reg;
-
 always_ff @(posedge clk or negedge rst_n) begin
 
 	if (!rst_n) begin
@@ -337,9 +344,9 @@ end
 
 /*=============================Max Registers=============================*/
 
+// Row_in
 always_comb begin
 	row_in = '0;
-	col_in = '0;
 	for (int unsigned i = 0; i < COMPARE_UNITS; i++) begin 
 		for (int j = 0; j < N - 1; j++) begin
 			if (wr_en_max) begin
@@ -348,16 +355,32 @@ always_comb begin
 					row_in[i][1] = (global_counter - 5'd2 - i[4:0]) * 5'd2;
 					row_in[i][2] = (global_counter - 5'd2 - i[4:0]) * 5'd2 + 5'd1;
 					row_in[i][3] = (global_counter - 5'd2 - i[4:0]) * 5'd2 + 5'd1;
-					col_in[i][0] = 5'd2*i[4:0];
-					col_in[i][1] = 5'd2*i[4:0] + 5'd1;
-					col_in[i][2] = 5'd2*i[4:0];
-					col_in[i][3] = 5'd2*i[4:0] + 5'd1;
 				end
 				else begin // lower half
 					row_in[i][0] = 5'd30 - 5'd2*i[4:0];
 					row_in[i][1] = 5'd30 - 5'd2*i[4:0];
 					row_in[i][2] = 5'd30 - 5'd2*i[4:0] + 5'd1;
 					row_in[i][3] = 5'd30 - 5'd2*i[4:0] + 5'd1;
+				end
+			end
+		end
+	end
+end
+
+
+// Col_in
+always_comb begin
+	col_in = '0;
+	for (int unsigned i = 0; i < COMPARE_UNITS; i++) begin 
+		for (int j = 0; j < N - 1; j++) begin
+			if (wr_en_max) begin
+				if (global_counter >= 5'd2 && global_counter <= 5'd17) begin // upper half
+					col_in[i][0] = 5'd2*i[4:0];
+					col_in[i][1] = 5'd2*i[4:0] + 5'd1;
+					col_in[i][2] = 5'd2*i[4:0];
+					col_in[i][3] = 5'd2*i[4:0] + 5'd1;
+				end
+				else begin // lower half
 					col_in[i][0] = (global_counter - 5'd17) * 5'd2;
 					col_in[i][1] = (global_counter - 5'd17) * 5'd2 + 5'd1;
 					col_in[i][2] = (global_counter - 5'd17) * 5'd2;
@@ -369,8 +392,6 @@ always_comb begin
 end
 
 /*===============================TRACEBACK===============================*/
-logic prev_en_traceback;
-
 always_ff @(posedge clk or negedge rst_n) begin
 	if (!rst_n) begin
 		prev_en_traceback <= '0;

@@ -33,18 +33,26 @@ import design_variables::*;
 	output logic [SEQ_LENGTH-1:0][LETTER_WIDTH-1:0]			database_seq_out
 );
 
-/*===============================LOGIC===============================*/
+/*===============================SIGNALS=============================*/
+
+// Decoder
 logic [NUM_BUFF_REGS-1:0] reg_enable;
 
+// Query Registers
+logic [NUM_BUFF_REGS-1:0][BITS_REG-1:0] query_regs;
+
+// Database Registers
+logic [NUM_BUFF_REGS-1:0][BITS_REG-1:0] database_regs;
+
+/*===============================LOGIC===============================*/
 // Decoder
 always_comb begin
 	for (int i = 0; i < NUM_BUFF_REGS; i++) begin : decoder
-		reg_enable[i] = (i[BUFF_CNT_W-1:0] == count) ? 1'b1 : 1'b0;
+		reg_enable[i] = (i[BUFF_CNT_W-1:0] == count);
 	end
 end
 
 // Query Registers
-logic [NUM_BUFF_REGS-1:0][BITS_REG-1:0] query_regs;
 generate
 	for (genvar i = 0; i < NUM_BUFF_REGS; i++) begin : query_reg
 		always_ff @(posedge clk or negedge rst_n) begin
@@ -62,7 +70,6 @@ generate
 endgenerate
 
 // Database Registers
-logic [NUM_BUFF_REGS-1:0][BITS_REG-1:0] database_regs;
 generate
 	for (genvar i = 0; i < NUM_BUFF_REGS; i++) begin : database_reg
 		always_ff @(posedge clk or negedge rst_n) begin

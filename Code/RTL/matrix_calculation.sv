@@ -147,22 +147,14 @@ always_comb begin
 end
 
 //========= output from PUs ===========//
+
+// Scores_out
 always_ff @(posedge clk or negedge rst_n) begin
 	if (!rst_n) begin
-		data_packet <= '0;
 		scores_out  <= '0;
 	end
 	
 	else begin 
-		// Data packet assignment
-		for (int i = 0; i < NUM_PU; i++) begin 
-			for (int j = 0; j <= NUM_ROWS_PE-1; j++) begin 
-				for (int k = 0; k <= NUM_COLS_PE-1; k++) begin 
-					data_packet[i][j][k] <= {zero_score_bits[i][j][k], sources[i][j][k]};
-				end
-			end
-		end
-		
 		// Scores out assignment
 		for (int i = 0; i < NUM_PU; i++) begin 
 			for (int j = 0; j <= NUM_ROWS_PE-1; j++) begin 
@@ -178,6 +170,27 @@ always_ff @(posedge clk or negedge rst_n) begin
 		end
 	end
 end
+
+
+// Data_packet
+always_ff @(posedge clk or negedge rst_n) begin
+	if (!rst_n) begin
+		data_packet <= '0;
+	end
+	
+	else begin 
+		// Data packet assignment
+		for (int i = 0; i < NUM_PU; i++) begin 
+			for (int j = 0; j <= NUM_ROWS_PE-1; j++) begin 
+				for (int k = 0; k <= NUM_COLS_PE-1; k++) begin 
+					data_packet[i][j][k] <= {zero_score_bits[i][j][k], sources[i][j][k]};
+				end
+			end
+		end
+	end
+end
+
+
 
 //======scores_before_two_cycles ======//
 generate
