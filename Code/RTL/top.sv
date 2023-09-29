@@ -51,8 +51,8 @@ logic [NUM_PU-2:0][1:0]												left_sel;
 logic [NUM_PU-2:0][1:0]												diagonal_sel;
 logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]		query_letter_sel;
 logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]		database_letter_sel;
-logic [4:0] 														global_counter;
-logic [COMPARE_UNITS-1:0][N-1:0][ROW_BITS_WIDTH-1:0]     			row_in;					 
+logic [NUM_PU-1:0] 													wr_en_pu;
+logic [COMPARE_UNITS-1:0][N-1:0][ROW_BITS_WIDTH-1:0]     			row_in;				 
 logic [COMPARE_UNITS-1:0][N-1:0][COL_BITS_WIDTH-1:0]     			col_in;
 logic [NUM_DIAGONALS-1:0]											write_ctl;
 logic [NUM_DIAGONALS_W-1:0] 										choose_diagonal;
@@ -101,13 +101,13 @@ logic [DATA_PACKET_SIZE-1:0]  								data_packet_out_memory;
 					.diagonal_sel(diagonal_sel),
 					.query_letter_sel(query_letter_sel),
 					.database_letter_sel(database_letter_sel),
+					.wr_en_pu(wr_en_pu),
 					
 					// Matrix Memory
 					.write_ctl(write_ctl),
 					.choose_diagonal(choose_diagonal),
 					.choose_pu(choose_pu),
 					.choose_pe(choose_pe),
-					.global_counter(global_counter),
 
 					// Max Registers
 					.wr_en_max(wr_en_max),
@@ -170,7 +170,7 @@ logic [DATA_PACKET_SIZE-1:0]  								data_packet_out_memory;
 							.diagonal_sel(diagonal_sel),
 							.query_letter_sel(query_letter_sel),
 							.database_letter_sel(database_letter_sel),
-							.global_counter(global_counter),
+							.wr_en_pu(wr_en_pu),
 							
 							// Outputs to max_registers
 							.scores_out(scores_out_mat),

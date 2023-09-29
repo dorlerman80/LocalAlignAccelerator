@@ -29,7 +29,7 @@ import design_variables::*;
 	output logic [NUM_PU-2:0][1:0]	diagonal_sel,
 	output logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]			query_letter_sel,
 	output logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]			database_letter_sel,
-	output logic [4:0] global_counter,
+	output logic [NUM_PU-1:0] 														en_wr_pu,
 
 	// Max Registers
 	output logic  wr_en_max,
@@ -59,13 +59,14 @@ typedef enum bit [1:0] {IDLE_ST = 2'b00, LOAD_SEQUENCES_ST = 2'b01, SCORES_CALC_
 STATE CUR_ST;
 STATE NEXT_ST;
 logic busy;
+logic [4:0] global_counter;
 
 /*===========================GLOBAL COUNTER==========================*/
 always_ff @(posedge clk or negedge rst_n) begin
 	if (!rst_n) begin
 		global_counter <= '0;
 	end	 
-	else if (busy && global_counter <= 5'd31 && CUR_ST != IDLE_ST) begin
+	else if (busy) begin
 			global_counter <= global_counter + 5'd1;
 	end
 	else if (finished) begin
@@ -89,7 +90,6 @@ always_comb begin
 	wr_en_buff = 1'b0;
 	count_buff = '0;
 	wr_en_max = 1'b0;
-	// Add default values to matrix memory
 	en_traceback = 1'b0;
 	output_valid = 1'b0;
 	busy = 1'b1;
@@ -99,6 +99,7 @@ always_comb begin
 		IDLE_ST:
 		begin
 			ready = 1'b1;
+			busy = 1'b0;
 			if (start == 1'b1) begin
 				NEXT_ST = LOAD_SEQUENCES_ST;
 			end
@@ -140,6 +141,19 @@ always_comb begin
 end
 
 /*===========================MATRIX CALCULATION==========================*/
+
+// PUs Write Enable
+always_comb begin		
+	for (int i = 0; i < NUM_PU; i++) begin 
+		if ((global_counter > 5'd0 && global_counter <= 5'd16 && i[4:0] < global_counter) ||
+			(global_counter > 5'd16 && global_counter <= 5'd31 && i[5:0] < (6'd32-{1'b0, global_counter}))) begin
+			en_wr_pu[i] = 1'b1;
+		end
+		else begin
+			en_wr_pu[i] = 1'b0;
+		end
+	end
+end
 
 // Query letters select
 always_comb begin

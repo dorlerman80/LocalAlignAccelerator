@@ -30,7 +30,7 @@ import design_variables::*;
 	input logic [NUM_PU-2:0][1:0]	diagonal_sel,
 	input logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]	 query_letter_sel,
 	input logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]	 database_letter_sel,
-	input logic [4:0] global_counter,
+	input logic [NUM_PU-1:0] en_wr_pu,
 	
 	// Outputs to max_registers
 	output logic [NUM_PU-1:0][NUM_ROWS_PE-1:0][NUM_COLS_PE-1:0][SCORE_WIDTH-1:0]		scores_out, // we have 'NUM_PU' units. each PU has NUM_ROWS_COLS^2 PEs.
@@ -120,7 +120,7 @@ always_comb begin
 	end
 	
 	// PU diagonal score select
-	for (int i = 0; i < NUM_PU; i++) begin 
+	for (int i = 0; i < NUM_PU; i++) begin
 		if (i == 0) begin
 			case (diagonal_sel[i])
 				2'd0 : pu_diagonal_scores[i] = '0;
@@ -167,8 +167,7 @@ always_ff @(posedge clk or negedge rst_n) begin
 		for (int i = 0; i < NUM_PU; i++) begin 
 			for (int j = 0; j <= NUM_ROWS_PE-1; j++) begin 
 				for (int k = 0; k <= NUM_COLS_PE-1; k++) begin
-					if ((global_counter > 5'd0 && global_counter <= 5'd16 && i[4:0] < global_counter) ||
-						(global_counter > 5'd16 && global_counter <= 5'd31 && i[5:0] < (6'd32-{1'b0, global_counter}))) begin
+					if (en_wr_pu[i]) begin
 						scores_out[i][j][k] <= scores_cur_cycle[i][j][k];
 					end
 					else begin
