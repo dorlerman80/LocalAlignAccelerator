@@ -1,0 +1,12 @@
+###################################################################
+
+# Created by write_sdc on Sat Dec 30 17:12:04 2023
+
+###################################################################
+set sdc_version 2.1
+
+set_units -time ns -resistance kOhm -capacitance pF -voltage V -current mA
+create_clock [get_ports clk]  -period 3.33  -waveform {0 1.665}
+group_path -name FEEDTHR  -from [list [get_ports rst_n] [get_ports start] [get_ports {query_seq_in[7]}] [get_ports {query_seq_in[6]}] [get_ports {query_seq_in[5]}] [get_ports {query_seq_in[4]}] [get_ports {query_seq_in[3]}] [get_ports {query_seq_in[2]}] [get_ports {query_seq_in[1]}] [get_ports {query_seq_in[0]}] [get_ports {database_seq_in[7]}] [get_ports {database_seq_in[6]}] [get_ports {database_seq_in[5]}] [get_ports {database_seq_in[4]}] [get_ports {database_seq_in[3]}] [get_ports {database_seq_in[2]}] [get_ports {database_seq_in[1]}] [get_ports {database_seq_in[0]}] [get_ports inverter_in] [get_ports flipflop_in]]  -to [list [get_ports ready] [get_ports {query_seq_out[2]}] [get_ports {query_seq_out[1]}] [get_ports {query_seq_out[0]}] [get_ports {database_seq_out[2]}] [get_ports {database_seq_out[1]}] [get_ports {database_seq_out[0]}] [get_ports {score[6]}] [get_ports {score[5]}] [get_ports {score[4]}] [get_ports {score[3]}] [get_ports {score[2]}] [get_ports {score[1]}] [get_ports {score[0]}] [get_ports output_valid] [get_ports inverter_out] [get_ports flipflop_out]]
+group_path -name IN  -from [list [get_ports rst_n] [get_ports start] [get_ports {query_seq_in[7]}] [get_ports {query_seq_in[6]}] [get_ports {query_seq_in[5]}] [get_ports {query_seq_in[4]}] [get_ports {query_seq_in[3]}] [get_ports {query_seq_in[2]}] [get_ports {query_seq_in[1]}] [get_ports {query_seq_in[0]}] [get_ports {database_seq_in[7]}] [get_ports {database_seq_in[6]}] [get_ports {database_seq_in[5]}] [get_ports {database_seq_in[4]}] [get_ports {database_seq_in[3]}] [get_ports {database_seq_in[2]}] [get_ports {database_seq_in[1]}] [get_ports {database_seq_in[0]}] [get_ports inverter_in] [get_ports flipflop_in]]
+group_path -name OUT  -to [list [get_ports ready] [get_ports {query_seq_out[2]}] [get_ports {query_seq_out[1]}] [get_ports {query_seq_out[0]}] [get_ports {database_seq_out[2]}] [get_ports {database_seq_out[1]}] [get_ports {database_seq_out[0]}] [get_ports {score[6]}] [get_ports {score[5]}] [get_ports {score[4]}] [get_ports {score[3]}] [get_ports {score[2]}] [get_ports {score[1]}] [get_ports {score[0]}] [get_ports output_valid] [get_ports inverter_out] [get_ports flipflop_out]]
