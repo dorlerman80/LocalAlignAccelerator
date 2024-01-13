@@ -55,14 +55,16 @@ package design_variables;
 	
 	//max of n , Max Registers
 	//score width was 8 
-	localparam  N 				 =	  4;
-	localparam  M				 =    16;
+	localparam  NUM_VALS_LVL_1 	 =	  4;
+	localparam  NUM_VALS_LVL_2	 =    4;
+	localparam  NUM_VALS_LVL_3	 =    4;
 	localparam  ROW_BITS_WIDTH	 =	  SEQ_LENGTH_W;
 	localparam  COL_BITS_WIDTH	 =	  SEQ_LENGTH_W;
 	
 
 	// Max Registers
-	localparam  COMPARE_UNITS	 =  16;
+	localparam  COMPARE_UNITS_LVL_1	 =  16;
+	localparam  COMPARE_UNITS_LVL_2	 =  4;
 
 	
 	// Processing Element
