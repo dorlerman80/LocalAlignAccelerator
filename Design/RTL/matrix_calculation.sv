@@ -30,7 +30,7 @@ import design_variables::*;
 	input logic [NUM_PU-2:0][1:0]	diagonal_sel,
 	input logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]	 query_letter_sel,
 	input logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]	 database_letter_sel,
-	input logic [NUM_PU-1:0] en_wr_pu,
+	input logic [NUM_PU-1:0] wr_en_pu,
 	
 	// Outputs to max_registers
 	output logic [NUM_PU-1:0][NUM_ROWS_PE-1:0][NUM_COLS_PE-1:0][SCORE_WIDTH-1:0]		scores_out, // we have 'NUM_PU' units. each PU has NUM_ROWS_COLS^2 PEs.
@@ -159,7 +159,7 @@ always_ff @(posedge clk or negedge rst_n) begin
 		for (int i = 0; i < NUM_PU; i++) begin 
 			for (int j = 0; j <= NUM_ROWS_PE-1; j++) begin 
 				for (int k = 0; k <= NUM_COLS_PE-1; k++) begin
-					if (en_wr_pu[i]) begin
+					if (wr_en_pu[i]) begin
 						scores_out[i][j][k] <= scores_cur_cycle[i][j][k];
 					end
 					else begin

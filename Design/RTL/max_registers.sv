@@ -23,6 +23,7 @@ import design_variables::*;
 	
 	// Controller Interface
 	input logic 	wr_en_max,
+	input logic 	start,
 
 	// Comparison Inputs
 	input logic  [COMPARE_UNITS_LVL_1-1:0][NUM_VALS_LVL_1-1:0][SCORE_WIDTH-1:0]   	   score_in,
@@ -127,7 +128,8 @@ always_ff @(posedge clk or negedge rst_n) begin
 
 	if (!rst_n)
 		max_col_reg 	<= 	'0;
-		
+	else if (start)
+		max_col_reg 	<= 	'0;	
 	else if (en_update)
 		max_col_reg 	<=	 new_max_col;		
 end
@@ -140,7 +142,8 @@ always_ff @(posedge clk or negedge rst_n) begin
 
 	if (!rst_n)
 		max_row_reg 	<= 	'0;
-		
+	else if (start)
+		max_row_reg 	<= 	'0;		
 	else if (en_update)
 		max_row_reg 	<=	 new_max_row;		
 end
@@ -153,7 +156,8 @@ always_ff @(posedge clk or negedge rst_n) begin
 
 	if (!rst_n)
 		max_score_reg 	<= 	'0;
-		
+	else if (start)
+		max_score_reg 	<= 	'0;	
 	else if (en_update)
 		max_score_reg 	<=	 new_max_score;		
 end

@@ -29,12 +29,12 @@ import design_variables::*;
 	output logic [NUM_PU-2:0][1:0]	diagonal_sel,
 	output logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]			query_letter_sel,
 	output logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]			database_letter_sel,
-	output logic [NUM_PU-1:0] 														en_wr_pu,
+	output logic [NUM_PU-1:0] 														wr_en_pu,
 
 	// Max Registers
 	output logic  wr_en_max,
-	output logic  [COMPARE_UNITS-1:0][N-1:0][ROW_BITS_WIDTH-1:0]     row_in,					 
-	output logic  [COMPARE_UNITS-1:0][N-1:0][COL_BITS_WIDTH-1:0]     col_in,
+	output logic  [COMPARE_UNITS_LVL_1-1:0][NUM_VALS_LVL_1-1:0][ROW_BITS_WIDTH-1:0]     row_in,					 
+	output logic  [COMPARE_UNITS_LVL_1-1:0][NUM_VALS_LVL_1-1:0][COL_BITS_WIDTH-1:0]     col_in,
 		
 	// Matrix Memory
 	output logic [NUM_DIAGONALS-1:0]		   write_ctl,
@@ -154,12 +154,12 @@ end
 // PUs Write Enable
 always_comb begin		
 	for (int i = 0; i < NUM_PU; i++) begin 
-		if ((global_counter > 5'd0 && global_counter <= 5'd16 && i[4:0] < global_counter) ||
-			(global_counter > 5'd16 && global_counter <= 5'd31 && i[5:0] < (6'd32-{1'b0, global_counter}))) begin
-			en_wr_pu[i] = 1'b1;
+		if (((global_counter > 5'd0 && global_counter <= 5'd16) && $unsigned(i[4:0]) < global_counter) ||
+			((global_counter > 5'd16 && global_counter <= 5'd31) && ($unsigned(i[5:0]) < (6'd32-{1'b0, global_counter})))) begin
+			wr_en_pu[i] = 1'b1;
 		end
 		else begin
-			en_wr_pu[i] = 1'b0;
+			wr_en_pu[i] = 1'b0;
 		end
 	end
 end
@@ -334,7 +334,7 @@ assign choose_diagonal = (next_row >> 1) + (next_col >> 1);
 
 // Choose PU
 always_comb begin
-	if (next_row + next_col <= 5'd31) begin
+	if (next_row + next_col <= 6'd31) begin
 		choose_pu = next_col[COL_BITS_WIDTH-1:1];
 	end
 	else begin
@@ -347,8 +347,8 @@ end
 // Row_in
 always_comb begin
 	row_in = '0;
-	for (int unsigned i = 0; i < COMPARE_UNITS; i++) begin 
-		for (int j = 0; j < N - 1; j++) begin
+	for (int unsigned i = 0; i < COMPARE_UNITS_LVL_1; i++) begin 
+		for (int j = 0; j < NUM_VALS_LVL_1 - 1; j++) begin
 			if (wr_en_max) begin
 				if (global_counter >= 5'd2 && global_counter <= 5'd17) begin // upper half
 					row_in[i][0] = (global_counter - 5'd2 - i[4:0]) * 5'd2;
@@ -371,8 +371,8 @@ end
 // Col_in
 always_comb begin
 	col_in = '0;
-	for (int unsigned i = 0; i < COMPARE_UNITS; i++) begin 
-		for (int j = 0; j < N - 1; j++) begin
+	for (int unsigned i = 0; i < COMPARE_UNITS_LVL_1; i++) begin 
+		for (int j = 0; j < NUM_VALS_LVL_1 - 1; j++) begin
 			if (wr_en_max) begin
 				if (global_counter >= 5'd2 && global_counter <= 5'd17) begin // upper half
 					col_in[i][0] = 5'd2*i[4:0];
@@ -381,10 +381,10 @@ always_comb begin
 					col_in[i][3] = 5'd2*i[4:0] + 5'd1;
 				end
 				else begin // lower half
-					col_in[i][0] = (global_counter - 5'd17) * 5'd2;
-					col_in[i][1] = (global_counter - 5'd17) * 5'd2 + 5'd1;
-					col_in[i][2] = (global_counter - 5'd17) * 5'd2;
-					col_in[i][3] = (global_counter - 5'd17) * 5'd2 + 5'd1;
+					col_in[i][0] = (global_counter - 5'd17 + i[4:0]) * 5'd2;
+					col_in[i][1] = (global_counter - 5'd17 + i[4:0]) * 5'd2 + 5'd1;
+					col_in[i][2] = (global_counter - 5'd17 + i[4:0]) * 5'd2;
+					col_in[i][3] = (global_counter - 5'd17 + i[4:0]) * 5'd2 + 5'd1;
 				end
 			end
 		end
