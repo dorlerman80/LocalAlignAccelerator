@@ -43,23 +43,23 @@ logic 	[SEQ_LENGTH_W-1:0]							next_col;
 logic												finished;
 
 // Controller Outputs
-logic                       										wr_en_buff;
-logic [BUFF_CNT_W-1:0]     											count_buff;
-logic 																wr_en_max;
-logic [NUM_PU-2:0][1:0]												top_sel;															
-logic [NUM_PU-2:0][1:0]												left_sel;													
-logic [NUM_PU-2:0][1:0]												diagonal_sel;
-logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]		query_letter_sel;
-logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]		database_letter_sel;
-logic [NUM_PU-1:0] 													wr_en_pu;
-logic [COMPARE_UNITS-1:0][N-1:0][ROW_BITS_WIDTH-1:0]     			row_in;				 
-logic [COMPARE_UNITS-1:0][N-1:0][COL_BITS_WIDTH-1:0]     			col_in;
-logic [NUM_DIAGONALS-1:0]											write_ctl;
-logic [NUM_DIAGONALS_W-1:0] 										choose_diagonal;
-logic [NUM_PU_MAIN_DIAGONAL_W-1:0]  								choose_pu;
-logic [NUM_PE_IN_PU_W-1:0]											choose_pe;
-logic 																en_traceback;
-logic 																start_of_traceback;
+logic                       												wr_en_buff;
+logic [BUFF_CNT_W-1:0]     													count_buff;
+logic 																		wr_en_max;
+logic [NUM_PU-2:0][1:0]														top_sel;															
+logic [NUM_PU-2:0][1:0]														left_sel;													
+logic [NUM_PU-2:0][1:0]														diagonal_sel;
+logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]				query_letter_sel;
+logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]				database_letter_sel;
+logic [NUM_PU-1:0] 															wr_en_pu;
+logic [COMPARE_UNITS_LVL_1-1:0][NUM_VALS_LVL_1-1:0][ROW_BITS_WIDTH-1:0]     row_in;				 
+logic [COMPARE_UNITS_LVL_1-1:0][NUM_VALS_LVL_1-1:0][COL_BITS_WIDTH-1:0]     col_in;
+logic [NUM_DIAGONALS-1:0]													write_ctl;
+logic [NUM_DIAGONALS_W-1:0] 												choose_diagonal;
+logic [NUM_PU_MAIN_DIAGONAL_W-1:0]  										choose_pu;
+logic [NUM_PE_IN_PU_W-1:0]													choose_pe;
+logic 																		en_traceback;
+logic 																		start_of_traceback;
 
 // Sequence Buffer Outputs
 logic [SEQ_LENGTH-1:0][LETTER_WIDTH-1:0]					query_seq_buff;
@@ -215,6 +215,7 @@ logic [DATA_PACKET_SIZE-1:0]  								data_packet_out_memory;
 
 						// Controller Interface
 						.wr_en_max(wr_en_max),
+						.start(start),
 						
 						// Comparison Inputs
 						.score_in(scores_out_mat),
