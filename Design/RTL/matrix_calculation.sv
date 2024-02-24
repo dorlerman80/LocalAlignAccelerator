@@ -6,7 +6,7 @@
  * Description   : Computes required calculations for the matrix filling
  *------------------------------------------------------------------------------*/
 
-`include "/users/epnido/Project/design/work/Project_Modules/RTL/design_variables.vh"
+`include "./design_variables.vh"
 module matrix_calculation
 import design_variables::*;
 /*==============================PARAMS===============================*/
@@ -25,9 +25,9 @@ import design_variables::*;
 	input logic [SEQ_LENGTH-1:0][LETTER_WIDTH-1:0]	database_seq,
 	
 	// Controller Selectors
-	input logic [NUM_PU-2:0][1:0]	top_sel,
-	input logic [NUM_PU-2:0][1:0]	left_sel,
-	input logic [NUM_PU-2:0][1:0]	diagonal_sel,
+	input logic [NUM_PU-2:0][SLCT_VAL_PE_TOP-1:0]						   	 top_sel,
+	input logic [NUM_PU-2:0][SLCT_VAL_PE_LEFT-1:0]						   	 left_sel,
+	input logic [NUM_PU-2:0][SLCT_VAL_PE_DIAGONAL-1:0]					     diagonal_sel,
 	input logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]	 query_letter_sel,
 	input logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]	 database_letter_sel,
 	input logic [NUM_PU-1:0] wr_en_pu,
@@ -140,7 +140,6 @@ always_comb begin
 				2'd1 : pu_diagonal_scores[i] = scores_before_two_cycles[i];
 				2'd2 : pu_diagonal_scores[i] = scores_before_two_cycles[i-1];
 				2'd3 : pu_diagonal_scores[i] = scores_before_two_cycles[i+1];
-				default: pu_diagonal_scores[i] = '0; // will not get here
 			endcase
 		end
 	end
@@ -233,3 +232,4 @@ generate
 endgenerate
 
 endmodule
+

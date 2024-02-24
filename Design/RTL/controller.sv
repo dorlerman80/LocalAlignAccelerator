@@ -5,15 +5,14 @@
  * Creation date : Aug 18, 2023
  * Description   : Controller's Logic
  *------------------------------------------------------------------------------*/
-`include "/users/epnido/Project/design/work/Project_Modules/RTL/design_variables.vh"
+
+`include "./design_variables.vh"
+
 module controller
-import design_variables::*; 
-#(
-/*==============================PARAMS===============================*/
-// Defined in design_variables package
-)
-/*==============================IN/OUT===============================*/
+import design_variables::*;
+#()
 (
+/*==============================IN/OUT===============================*/
 	// Clock & reset
 	input logic		clk,
 	input logic     rst_n,
@@ -24,9 +23,9 @@ import design_variables::*;
 	output logic [BUFF_CNT_W-1:0]     				count_buff,
 	
 	// Matrix Calculation
-	output logic [NUM_PU-2:0][1:0]	top_sel,															
-	output logic [NUM_PU-2:0][1:0]	left_sel,													
-	output logic [NUM_PU-2:0][1:0]	diagonal_sel,
+	output logic [NUM_PU-2:0][SLCT_VAL_PE_TOP-1:0]									top_sel,															
+	output logic [NUM_PU-2:0][SLCT_VAL_PE_LEFT-1:0]									left_sel,													
+	output logic [NUM_PU-2:0][SLCT_VAL_PE_DIAGONAL-1:0]								diagonal_sel,
 	output logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]			query_letter_sel,
 	output logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]			database_letter_sel,
 	output logic [NUM_PU-1:0] 														wr_en_pu,
@@ -66,9 +65,11 @@ logic busy;
 
 // Matrix memory
 logic [NUM_DIAGONALS-1:0] write_ctl_reg;
+logic [ROW_BITS_WIDTH:0] row_col_sum;
 
 // Traceback
 logic prev_en_traceback;
+
 
 /*===========================GLOBAL COUNTER==========================*/
 always_ff @(posedge clk or negedge rst_n) begin
@@ -153,9 +154,9 @@ end
 
 // PUs Write Enable
 always_comb begin		
-	for (int i = 0; i < NUM_PU; i++) begin 
-		if (((global_counter > 5'd0 && global_counter <= 5'd16) && $unsigned(i[4:0]) < global_counter) ||
-			((global_counter > 5'd16 && global_counter <= 5'd31) && ($unsigned(i[5:0]) < (6'd32-{1'b0, global_counter})))) begin
+	for (int unsigned i = 0; i < NUM_PU; i++) begin 
+		if (((global_counter > 5'd0 && global_counter <= 5'd16) && i[4:0] < global_counter) ||
+			((global_counter > 5'd16 && global_counter <= 5'd31) && (i[5:0] < (6'd32-{1'b0, global_counter})))) begin
 			wr_en_pu[i] = 1'b1;
 		end
 		else begin
@@ -194,7 +195,7 @@ end
 
 // Top select
 always_comb begin
-	for (int unsigned j = 0; j < NUM_PU - 1; j++) begin
+	for (int unsigned j = 0; j < $unsigned(NUM_PU - 1); j++) begin
 		if (global_counter <= 5'd16) begin // upper half
 			if (j == 0) begin // PU number 0 (On the first column)
 				top_sel[j] = (global_counter == 5'd1) ? 2'd0 : 2'd1;
@@ -242,7 +243,7 @@ end
 
 // Diagonal select
 always_comb begin
-	for (int unsigned j = 0; j < NUM_PU - 1; j++) begin
+	for (int unsigned j = 0; j < $unsigned(NUM_PU - 1); j++) begin
 		if (global_counter < 5'd17) begin // upper half
 			if(j == 0) begin // PU number 0 
 				diagonal_sel[j] = 2'd0;
@@ -333,14 +334,8 @@ end
 assign choose_diagonal = (next_row >> 1) + (next_col >> 1);
 
 // Choose PU
-always_comb begin
-	if (next_row + next_col <= 6'd31) begin
-		choose_pu = next_col[COL_BITS_WIDTH-1:1];
-	end
-	else begin
-		choose_pu = ~next_row[COL_BITS_WIDTH-1:1];
-	end
-end
+assign row_col_sum = {1'b0, next_row} + {1'b0, next_col};
+assign choose_pu = (row_col_sum[COL_BITS_WIDTH]) ? ~next_row[COL_BITS_WIDTH-1:1] : next_col[COL_BITS_WIDTH-1:1];
 
 /*=============================Max Registers=============================*/
 
@@ -405,3 +400,4 @@ end
 assign start_of_traceback = ~prev_en_traceback && en_traceback;
 
 endmodule
+
