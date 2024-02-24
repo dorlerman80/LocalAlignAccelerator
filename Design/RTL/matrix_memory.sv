@@ -6,30 +6,28 @@
  * Description   : Stores the required data of the matrix
  *------------------------------------------------------------------------------*/
 
-`include "/users/epnido/Project/design/work/Project_Modules/RTL/design_variables.vh"
+`include "./design_variables.vh"
+
 module matrix_memory
 import design_variables::*;
-/*==============================PARAMS===============================*/
-#(
-	// Defined in design_variables package
-)
-/*==============================IN/OUT===============================*/
+#()
+
 (
-	// CLK & RESET
+/*==============================IN/OUT===============================*/
 	input logic 	clk,
 	input logic 	rst_n,
 	
 	// Controller Interface
-	input logic [NUM_DIAGONALS-1:0]				write_ctl,			// Enables vector
-	input logic [NUM_DIAGONALS_W-1:0] 		    choose_diagonal,	// Select diagonal to read
-	input logic [NUM_PU_MAIN_DIAGONAL_W-1:0]  	choose_pu,			// Select PU to read
-	input logic [NUM_PE_IN_PU_W-1:0]			choose_pe,			// Select PE to read
+	input logic [NUM_DIAGONALS-1:0]				write_ctl,
+	input logic [NUM_DIAGONALS_W-1:0] 		    choose_diagonal,
+	input logic [NUM_PU_MAIN_DIAGONAL_W-1:0]  	choose_pu,
+	input logic [NUM_PE_IN_PU_W-1:0]			choose_pe,
 	
 	// Write Interface
-	input logic [NUM_PU_MAIN_DIAGONAL-1:0][1:0][1:0][DATA_PACKET_SIZE-1:0]	data_packet_in,
+	input logic [NUM_PU_MAIN_DIAGONAL-1:0][NUM_ROWS_PE-1:0][NUM_COLS_PE-1:0][DATA_PACKET_SIZE-1:0] data_packet_in,
 	
 	// Read Interface
-	output logic [DATA_PACKET_SIZE-1:0]  data_packet_out
+	output logic [DATA_PACKET_SIZE-1:0] data_packet_out
 );
 
 /*===============================LOGIC===============================*/
@@ -701,7 +699,6 @@ always_comb begin
 		2'd1: selected_pe = selected_pu[0][1];
 		2'd2: selected_pe = selected_pu[1][0];
 		2'd3: selected_pe = selected_pu[1][1];
-		default: selected_pe = selected_pu[0][0];
 	endcase
 end
 

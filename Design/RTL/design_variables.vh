@@ -22,6 +22,11 @@ package design_variables;
 												// |------------ |-------------|
 												// | PE 2=(10)b  |  PE 3=(11)b |
 												// -----------------------------
+	localparam SLCT_VAL_PE_TOP		  =  	$clog2(NUM_PE_IN_PU);
+	localparam SLCT_VAL_PE_LEFT		  =  	$clog2(NUM_PE_IN_PU);
+	localparam SLCT_VAL_PE_DIAGONAL	  =  	$clog2(NUM_PE_IN_PU);
+
+	
 	localparam NUM_PE_IN_PU_W		  =     $clog2(NUM_PE_IN_PU);
 	localparam NUM_ROWS_PE			  = 	2; 
 	localparam NUM_COLS_PE			  = 	2;

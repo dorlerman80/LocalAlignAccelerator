@@ -5,7 +5,7 @@
  * Creation date : Aug 18, 2023
  * Description   : Top Unit
  *------------------------------------------------------------------------------*/
-`include "/users/epnido/Project/design/work/Project_Modules/RTL/design_variables.vh"
+`include "./design_variables.vh"
 
 module top 
 import design_variables::*;
@@ -38,17 +38,17 @@ import design_variables::*;
 
 /*=================================SIGNALS==================================*/
 // Controller Inputs
-logic 	[SEQ_LENGTH_W-1:0]							next_row;
-logic 	[SEQ_LENGTH_W-1:0]							next_col;
+logic 	[ROW_BITS_WIDTH-1:0]						next_row;
+logic 	[COL_BITS_WIDTH-1:0]						next_col;
 logic												finished;
 
 // Controller Outputs
 logic                       												wr_en_buff;
 logic [BUFF_CNT_W-1:0]     													count_buff;
 logic 																		wr_en_max;
-logic [NUM_PU-2:0][1:0]														top_sel;															
-logic [NUM_PU-2:0][1:0]														left_sel;													
-logic [NUM_PU-2:0][1:0]														diagonal_sel;
+logic [NUM_PU-2:0][SLCT_VAL_PE_TOP-1:0]										top_sel;															
+logic [NUM_PU-2:0][SLCT_VAL_PE_LEFT-1:0]									left_sel;													
+logic [NUM_PU-2:0][SLCT_VAL_PE_DIAGONAL-1:0]								diagonal_sel;
 logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]				query_letter_sel;
 logic [NUM_PU-1:0][NUM_LETTERS_TO_CHOOSE-1:0][SEQ_LENGTH_W-1:0]				database_letter_sel;
 logic [NUM_PU-1:0] 															wr_en_pu;
@@ -283,3 +283,4 @@ logic [DATA_PACKET_SIZE-1:0]  								data_packet_out_memory;
 				);
 
 endmodule
+

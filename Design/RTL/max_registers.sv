@@ -6,7 +6,7 @@
  * Description   : 
  *				   
  *------------------------------------------------------------------------------*/
-`include "/users/epnido/Project/design/work/Project_Modules/RTL/design_variables.vh"
+`include "./design_variables.vh"
 
 module max_registers
 import design_variables::*;
@@ -169,3 +169,4 @@ assign max_score = max_score_reg;
 assign en_update = ((new_max_score > max_score_reg) && wr_en_max);
 
 endmodule
+
