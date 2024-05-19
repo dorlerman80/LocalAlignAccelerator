@@ -100,6 +100,7 @@ sw I0(.clk(wire_clk)
 );
 
 
+
 pv0c PAD_G1 (.VSS(VSS));
 pv0c PAD_G2 (.VSS(VSS));
 pvdc PAD_I1 (.VDD(VDD));
@@ -134,7 +135,7 @@ pc3d01 I22 ( .CIN(wire_query_seq_in[1]), .PAD(net117));
 pc3d01 I23 ( .CIN(wire_query_seq_in[0]), .PAD(net118));
 pc3d01 I24 ( .CIN(wire_rst_n), .PAD(net119));
 pc3d01 I25 ( .CIN(wire_scan_en), .PAD(net120));
-pc3d01 I26 ( .CIN(wire_scan_in1), .PAD(net121));
+pc3d01 I26 ( .CIN(wire_scan_in1), .PAD(net121));8
 pc3d01 I27 ( .CIN(wire_scan_in2), .PAD(net122));
 pc3d01 I28 ( .CIN(wire_scan_in3), .PAD(net123));
 pc3d01 I29 ( .CIN(wire_start), .PAD(net124));

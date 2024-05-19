@@ -1,0 +1,562 @@
+Information: Updating design information... (UID-85)
+Warning: Design 'top' contains 2 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : top
+Version: R-2020.09-SP2
+Date   : Fri May  3 17:35:50 2024
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: NC1D0COM   Library: tcbn65lplvttc1d0
+Wire Load Model Mode: segmented
+
+  Startpoint: I_controller/global_counter_reg[0]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: I_matrix_calculation/data_packet_reg[13][1][1][2]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  controller_test_1  ZeroWireload          tcbn65lplvttc1d0
+  traceback_test_1   ZeroWireload          tcbn65lplvttc1d0
+  sequence_buffer_test_1
+                     ZeroWireload          tcbn65lplvttc1d0
+  max_registers_test_1
+                     ZeroWireload          tcbn65lplvttc1d0
+  flipflop_test_1    ZeroWireload          tcbn65lplvttc1d0
+  matrix_memory_test_1
+                     ZeroWireload          tcbn65lplvttc1d0
+  matrix_calculation_test_1
+                     ZeroWireload          tcbn65lplvttc1d0
+  top                ZeroWireload          tcbn65lplvttc1d0
+  processing_element_12
+                     ZeroWireload          tcbn65lplvttc1d0
+  processing_element_10
+                     ZeroWireload          tcbn65lplvttc1d0
+  processing_unit_3  ZeroWireload          tcbn65lplvttc1d0
+  max_12             ZeroWireload          tcbn65lplvttc1d0
+  processing_element_11
+                     ZeroWireload          tcbn65lplvttc1d0
+  processing_element_9_DW01_inc_0_DW01_inc_9
+                     ZeroWireload          tcbn65lplvttc1d0
+  processing_element_9
+                     ZeroWireload          tcbn65lplvttc1d0
+  max_11             ZeroWireload          tcbn65lplvttc1d0
+  max_9              ZeroWireload          tcbn65lplvttc1d0
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  I_controller/global_counter_reg[0]/CP (SDFCNQD1LVT)     0.00 #     0.00 r
+  I_controller/global_counter_reg[0]/Q (SDFCNQD1LVT)      0.33       0.33 r
+  I_controller/U542/ZN (INVD1LVT)                         0.05       0.38 f
+  I_controller/U399/Z (CKBD1LVT)                          0.11       0.49 f
+  I_controller/U344/ZN (INVD1LVT)                         0.16       0.65 r
+  I_controller/U1460/ZN (CKND2D0LVT)                      0.11       0.76 f
+  I_controller/U1459/ZN (CKND0LVT)                        0.13       0.89 r
+  I_controller/U294/Z (OR2D1LVT)                          0.09       0.98 r
+  I_controller/U211/Z (CKBD1LVT)                          0.12       1.10 r
+  I_controller/U125/ZN (INVD1LVT)                         0.13       1.23 f
+  I_controller/U1357/ZN (CKND2D0LVT)                      0.12       1.35 r
+  I_controller/U297/ZN (ND2D1LVT)                         0.12       1.47 f
+  I_controller/U214/ZN (INVD1LVT)                         0.13       1.60 r
+  I_controller/U745/Z (AN2D0LVT)                          0.09       1.69 r
+  I_controller/U744/Z (CKXOR2D0LVT)                       0.13       1.82 f
+  I_controller/U1038/ZN (IND2D0LVT)                       0.08       1.90 f
+  I_controller/query_letter_sel[13][0][3] (controller_test_1)
+                                                          0.00       1.90 f
+  I_matrix_calculation/query_letter_sel[13][0][3] (matrix_calculation_test_1)
+                                                          0.00       1.90 f
+  I_matrix_calculation/U42/ZN (INVD1LVT)                  0.05       1.95 r
+  I_matrix_calculation/U3336/ZN (CKND2D0LVT)              0.06       2.01 f
+  I_matrix_calculation/U3349/Z (OA22D0LVT)                0.12       2.13 f
+  I_matrix_calculation/U3350/ZN (OAI221D0LVT)             0.06       2.19 r
+  I_matrix_calculation/U3351/Z (AO22D0LVT)                0.12       2.31 r
+  I_matrix_calculation/PU[13].pu_inst/query_letters[0][0] (processing_unit_3)
+                                                          0.00       2.31 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/query_letter[0] (processing_element_12)
+                                                          0.00       2.31 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/U47/ZN (XNR2D1LVT)
+                                                          0.08       2.39 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/U45/Z (AN2XD1LVT)
+                                                          0.06       2.45 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/U6/ZN (NR2D1LVT)
+                                                          0.09       2.55 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/U8/Z (AO22D0LVT)
+                                                          0.11       2.66 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/max_inst/diagonal[3] (max_12)
+                                                          0.00       2.66 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/max_inst/U11/ZN (INVD1LVT)
+                                                          0.02       2.68 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/max_inst/U50/Z (AN2D0LVT)
+                                                          0.06       2.74 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/max_inst/U51/ZN (OAI32D0LVT)
+                                                          0.10       2.83 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/max_inst/U55/ZN (OAI32D0LVT)
+                                                          0.08       2.91 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/max_inst/U3/ZN (MOAI22D1LVT)
+                                                          0.13       3.04 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/max_inst/U2/ZN (INVD1LVT)
+                                                          0.07       3.11 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/max_inst/U8/Z (AO22D0LVT)
+                                                          0.18       3.29 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/max_inst/max[1] (max_12)
+                                                          0.00       3.29 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[0].pe_row_0_column_j.pe_row_0_column_0.pe_inst/score[1] (processing_element_12)
+                                                          0.00       3.29 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/left[1] (processing_element_11)
+                                                          0.00       3.29 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/U51/Z (OR2D0LVT)
+                                                          0.12       3.41 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/U49/Z (OR2D0LVT)
+                                                          0.09       3.51 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/U44/Z (OR2D0LVT)
+                                                          0.09       3.60 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/U20/Z (OR2D0LVT)
+                                                          0.08       3.68 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/U18/ZN (XNR2D0LVT)
+                                                          0.11       3.78 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/U30/Z (AN2XD1LVT)
+                                                          0.06       3.84 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/left[6] (max_11)
+                                                          0.00       3.84 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/U5/ZN (INVD1LVT)
+                                                          0.02       3.86 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/U37/ZN (CKND2D0LVT)
+                                                          0.04       3.91 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/U38/ZN (OAI211D0LVT)
+                                                          0.07       3.98 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/U12/ZN (MOAI22D1LVT)
+                                                          0.11       4.09 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/U3/ZN (INVD1LVT)
+                                                          0.07       4.16 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/U13/Z (AO22D0LVT)
+                                                          0.13       4.29 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/U50/Z (AN2D0LVT)
+                                                          0.06       4.35 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/U51/ZN (OAI32D0LVT)
+                                                          0.10       4.45 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/U55/ZN (OAI32D0LVT)
+                                                          0.08       4.53 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/U11/ZN (MOAI22D1LVT)
+                                                          0.13       4.65 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/U4/ZN (INVD1LVT)
+                                                          0.07       4.72 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/U24/Z (AO22D0LVT)
+                                                          0.12       4.85 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/max_inst/max[2] (max_11)
+                                                          0.00       4.85 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[0].pe_column[1].pe_row_0_column_j.pe_row_0_column_j.pe_inst/score[2] (processing_element_11)
+                                                          0.00       4.85 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/top[2] (processing_element_9)
+                                                          0.00       4.85 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/U66/Z (AO211D0LVT)
+                                                          0.15       4.99 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/U67/Z (OR4D0LVT)
+                                                          0.20       5.19 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/U26/Z (AN2XD1LVT)
+                                                          0.08       5.26 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/top[3] (max_9)
+                                                          0.00       5.26 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/U39/Z (AN2D0LVT)
+                                                          0.05       5.32 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/U40/ZN (OAI32D0LVT)
+                                                          0.10       5.42 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/U44/ZN (OAI32D0LVT)
+                                                          0.08       5.49 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/U8/ZN (MOAI22D1LVT)
+                                                          0.12       5.61 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/U3/ZN (INVD1LVT)
+                                                          0.07       5.68 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/U11/Z (AO22D0LVT)
+                                                          0.13       5.81 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/U50/Z (AN2D0LVT)
+                                                          0.06       5.87 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/U51/ZN (OAI32D0LVT)
+                                                          0.10       5.96 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/U55/ZN (OAI32D0LVT)
+                                                          0.08       6.04 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/U9/ZN (MOAI22D1LVT)
+                                                          0.13       6.17 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/U4/ZN (INVD1LVT)
+                                                          0.07       6.24 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/U10/Z (AO22D0LVT)
+                                                          0.11       6.35 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/max_inst/max[3] (max_9)
+                                                          0.00       6.35 f
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/U4/ZN (NR4D0LVT)
+                                                          0.09       6.44 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/U3/ZN (INR4D0LVT)
+                                                          0.12       6.56 r
+  I_matrix_calculation/PU[13].pu_inst/pe_row[1].pe_column[1].pe_row_i_column_j.pe_inst/zero_score_bit (processing_element_9)
+                                                          0.00       6.56 r
+  I_matrix_calculation/PU[13].pu_inst/zero_score_bits[1][1] (processing_unit_3)
+                                                          0.00       6.56 r
+  I_matrix_calculation/data_packet_reg[13][1][1][2]/D (SDFCNQD1LVT)
+                                                          0.00       6.56 r
+  data arrival time                                                  6.56
+
+  clock clk (rise edge)                                   8.00       8.00
+  clock network delay (ideal)                             0.00       8.00
+  I_matrix_calculation/data_packet_reg[13][1][1][2]/CP (SDFCNQD1LVT)
+                                                          0.00       8.00 r
+  library setup time                                     -0.08       7.92
+  data required time                                                 7.92
+  --------------------------------------------------------------------------
+  data required time                                                 7.92
+  data arrival time                                                 -6.56
+  --------------------------------------------------------------------------
+  slack (MET)                                                        1.36
+
+
+1
+ 
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 1
+Design : top
+Version: R-2020.09-SP2
+Date   : Fri May  3 17:35:50 2024
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: NC1D0COM   Library: tcbn65lplvttc1d0
+Wire Load Model Mode: segmented
+
+  Startpoint: I_matrix_calculation/scores_out_reg[15][1][1][0]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: I_matrix_calculation/scores_before_two_cycles_reg[15][0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  controller_test_1  ZeroWireload          tcbn65lplvttc1d0
+  traceback_test_1   ZeroWireload          tcbn65lplvttc1d0
+  sequence_buffer_test_1
+                     ZeroWireload          tcbn65lplvttc1d0
+  max_registers_test_1
+                     ZeroWireload          tcbn65lplvttc1d0
+  flipflop_test_1    ZeroWireload          tcbn65lplvttc1d0
+  matrix_memory_test_1
+                     ZeroWireload          tcbn65lplvttc1d0
+  matrix_calculation_test_1
+                     ZeroWireload          tcbn65lplvttc1d0
+  top                ZeroWireload          tcbn65lplvttc1d0
+  max_of_n_NUM_VALS_TO_COMPARE4_6
+                     ZeroWireload          tcbn65lplvttc1d0
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  I_matrix_calculation/scores_out_reg[15][1][1][0]/CP (SDFCNQD1LVT)
+                                                          0.00 #     0.00 r
+  I_matrix_calculation/scores_out_reg[15][1][1][0]/Q (SDFCNQD1LVT)
+                                                          0.15       0.15 f
+  I_matrix_calculation/scores_before_two_cycles_reg[15][0]/D (SDFCNQD1LVT)
+                                                          0.00       0.15 f
+  data arrival time                                                  0.15
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  I_matrix_calculation/scores_before_two_cycles_reg[15][0]/CP (SDFCNQD1LVT)
+                                                          0.00       0.00 r
+  library hold time                                      -0.02      -0.02
+  data required time                                                -0.02
+  --------------------------------------------------------------------------
+  data required time                                                -0.02
+  data arrival time                                                 -0.15
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.17
+
+
+1
+ 
+****************************************
+Report : constraint
+        -all_violators
+        -verbose
+Design : top
+Version: R-2020.09-SP2
+Date   : Fri May  3 17:35:50 2024
+****************************************
+
+
+1
+ 
+****************************************
+Report : qor
+Design : top
+Version: R-2020.09-SP2
+Date   : Fri May  3 17:35:50 2024
+****************************************
+
+
+  Timing Path Group 'clk'
+  -----------------------------------
+  Levels of Logic:              65.00
+  Critical Path Length:          6.56
+  Critical Path Slack:           1.36
+  Critical Path Clk Period:      8.00
+  Total Negative Slack:          0.00
+  No. of Violating Paths:        0.00
+  Worst Hold Violation:          0.00
+  Total Hold Violation:          0.00
+  No. of Hold Violations:        0.00
+  -----------------------------------
+
+
+  Cell Count
+  -----------------------------------
+  Hierarchical Cell Count:        238
+  Hierarchical Port Count:      12200
+  Leaf Cell Count:              24286
+  Buf/Inv Cell Count:            4658
+  Buf Cell Count:                1934
+  Inv Cell Count:                2724
+  CT Buf/Inv Cell Count:            0
+  Combinational Cell Count:     20266
+  Sequential Cell Count:         4020
+  Macro Count:                      0
+  -----------------------------------
+
+
+  Area
+  -----------------------------------
+  Combinational Area:    47467.801250
+  Noncombinational Area: 52544.880710
+  Buf/Inv Area:           5745.240227
+  Total Buffer Area:          2802.96
+  Total Inverter Area:        2942.28
+  Macro/Black Box Area:      0.000000
+  Net Area:                  0.000000
+  -----------------------------------
+  Cell Area:            100012.681959
+  Design Area:          100012.681959
+
+
+  Design Rules
+  -----------------------------------
+  Total Number of Nets:         24925
+  Nets With Violations:             0
+  Max Trans Violations:             0
+  Max Cap Violations:               0
+  -----------------------------------
+
+
+  Hostname: vlsi-ria85
+
+  Compile CPU Statistics
+  -----------------------------------------
+  Resource Sharing:                   26.65
+  Logic Optimization:                  8.74
+  Mapping Optimization:               14.23
+  -----------------------------------------
+  Overall Compile Time:               58.19
+  Overall Compile Wall Clock Time:    58.83
+
+  --------------------------------------------------------------------
+
+  Design  WNS: 0.00  TNS: 0.00  Number of Violating Paths: 0
+
+
+  Design (Hold)  WNS: 0.00  TNS: 0.00  Number of Violating Paths: 0
+
+  --------------------------------------------------------------------
+
+
+1
+ 
+****************************************
+check_design summary:
+Version:     R-2020.09-SP2
+Date:        Fri May  3 17:35:50 2024
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Inputs/Outputs                                                    152
+    Unconnected ports (LINT-28)                                     9
+    Constant outputs (LINT-52)                                    143
+
+Cells                                                               5
+    Nets connected to multiple pins on same cell (LINT-33)          5
+--------------------------------------------------------------------------------
+
+Warning: In design 'controller_DW01_add_0_DW01_add_14', port 'A[5]' is not connected to any nets. (LINT-28)
+Warning: In design 'controller_DW01_add_0_DW01_add_14', port 'B[5]' is not connected to any nets. (LINT-28)
+Warning: In design 'controller_DW01_add_0_DW01_add_14', port 'CI' is not connected to any nets. (LINT-28)
+Warning: In design 'controller_DW01_add_0_DW01_add_14', port 'SUM[4]' is not connected to any nets. (LINT-28)
+Warning: In design 'controller_DW01_add_0_DW01_add_14', port 'SUM[3]' is not connected to any nets. (LINT-28)
+Warning: In design 'controller_DW01_add_0_DW01_add_14', port 'SUM[2]' is not connected to any nets. (LINT-28)
+Warning: In design 'controller_DW01_add_0_DW01_add_14', port 'SUM[1]' is not connected to any nets. (LINT-28)
+Warning: In design 'controller_DW01_add_0_DW01_add_14', port 'SUM[0]' is not connected to any nets. (LINT-28)
+Warning: In design 'controller_DW01_add_0_DW01_add_14', port 'CO' is not connected to any nets. (LINT-28)
+Warning: In design 'top', the same net is connected to more than one pin on submodule 'I_matrix_calculation'. (LINT-33)
+   Net 'n2' is connected to pins 'left_sel[14][1]', 'left_sel[13][1]'', 'left_sel[12][1]', 'left_sel[11][1]', 'left_sel[10][1]', 'left_sel[9][1]', 'left_sel[8][1]', 'left_sel[7][1]', 'left_sel[6][1]', 'left_sel[5][1]', 'left_sel[4][1]', 'left_sel[3][1]', 'left_sel[2][1]', 'left_sel[1][1]', 'left_sel[0][1]', 'query_letter_sel[15][0][0]', 'query_letter_sel[14][0][0]', 'query_letter_sel[13][0][0]', 'query_letter_sel[12][0][0]', 'query_letter_sel[11][0][0]', 'query_letter_sel[10][0][0]', 'query_letter_sel[9][0][0]', 'query_letter_sel[8][0][0]', 'query_letter_sel[7][0][0]', 'query_letter_sel[6][0][0]', 'query_letter_sel[5][0][0]', 'query_letter_sel[4][0][0]', 'query_letter_sel[3][0][0]', 'query_letter_sel[2][0][0]', 'query_letter_sel[1][0][0]', 'query_letter_sel[0][0][0]', 'database_letter_sel[15][0][0]', 'database_letter_sel[14][0][0]', 'database_letter_sel[13][0][0]', 'database_letter_sel[12][0][0]', 'database_letter_sel[11][0][0]', 'database_letter_sel[10][0][0]', 'database_letter_sel[9][0][0]', 'database_letter_sel[8][0][0]', 'database_letter_sel[7][0][0]', 'database_letter_sel[6][0][0]', 'database_letter_sel[5][0][0]', 'database_letter_sel[4][0][0]', 'database_letter_sel[3][0][0]', 'database_letter_sel[2][0][0]', 'database_letter_sel[1][0][0]', 'database_letter_sel[0][0][0]'.
+Warning: In design 'top', the same net is connected to more than one pin on submodule 'I_matrix_calculation'. (LINT-33)
+   Net 'n1' is connected to pins 'query_letter_sel[15][1][0]', 'query_letter_sel[14][1][0]'', 'query_letter_sel[13][1][0]', 'query_letter_sel[12][1][0]', 'query_letter_sel[11][1][0]', 'query_letter_sel[10][1][0]', 'query_letter_sel[9][1][0]', 'query_letter_sel[8][1][0]', 'query_letter_sel[7][1][0]', 'query_letter_sel[6][1][0]', 'query_letter_sel[5][1][0]', 'query_letter_sel[4][1][0]', 'query_letter_sel[3][1][0]', 'query_letter_sel[2][1][0]', 'query_letter_sel[1][1][0]', 'query_letter_sel[0][1][0]', 'database_letter_sel[15][1][0]', 'database_letter_sel[14][1][0]', 'database_letter_sel[13][1][0]', 'database_letter_sel[12][1][0]', 'database_letter_sel[11][1][0]', 'database_letter_sel[10][1][0]', 'database_letter_sel[9][1][0]', 'database_letter_sel[8][1][0]', 'database_letter_sel[7][1][0]', 'database_letter_sel[6][1][0]', 'database_letter_sel[5][1][0]', 'database_letter_sel[4][1][0]', 'database_letter_sel[3][1][0]', 'database_letter_sel[2][1][0]', 'database_letter_sel[1][1][0]', 'database_letter_sel[0][1][0]'.
+Warning: In design 'top', the same net is connected to more than one pin on submodule 'I_max_registers'. (LINT-33)
+   Net 'n2' is connected to pins 'row_in[15][1][0]', 'row_in[15][0][0]'', 'row_in[14][1][0]', 'row_in[14][0][0]', 'row_in[13][1][0]', 'row_in[13][0][0]', 'row_in[12][1][0]', 'row_in[12][0][0]', 'row_in[11][1][0]', 'row_in[11][0][0]', 'row_in[10][1][0]', 'row_in[10][0][0]', 'row_in[9][1][0]', 'row_in[9][0][0]', 'row_in[8][1][0]', 'row_in[8][0][0]', 'row_in[7][1][0]', 'row_in[7][0][0]', 'row_in[6][1][0]', 'row_in[6][0][0]', 'row_in[5][1][0]', 'row_in[5][0][0]', 'row_in[4][1][0]', 'row_in[4][0][0]', 'row_in[3][1][0]', 'row_in[3][0][0]', 'row_in[2][1][0]', 'row_in[2][0][0]', 'row_in[1][1][0]', 'row_in[1][0][0]', 'row_in[0][1][0]', 'row_in[0][0][0]', 'col_in[15][2][0]', 'col_in[15][0][0]', 'col_in[14][2][0]', 'col_in[14][0][0]', 'col_in[13][2][0]', 'col_in[13][0][0]', 'col_in[12][2][0]', 'col_in[12][0][0]', 'col_in[11][2][0]', 'col_in[11][0][0]', 'col_in[10][2][0]', 'col_in[10][0][0]', 'col_in[9][2][0]', 'col_in[9][0][0]', 'col_in[8][2][0]', 'col_in[8][0][0]', 'col_in[7][2][0]', 'col_in[7][0][0]', 'col_in[6][2][0]', 'col_in[6][0][0]', 'col_in[5][2][0]', 'col_in[5][0][0]', 'col_in[4][2][0]', 'col_in[4][0][0]', 'col_in[3][2][0]', 'col_in[3][0][0]', 'col_in[2][2][0]', 'col_in[2][0][0]', 'col_in[1][2][0]', 'col_in[1][0][0]', 'col_in[0][2][0]', 'col_in[0][0][0]'.
+Warning: In design 'matrix_calculation_test_1', the same net is connected to more than one pin on submodule 'PU[15].pu_inst'. (LINT-33)
+   Net '*Logic0*' is connected to pins 'prev_top_scores[1][6]', 'prev_top_scores[1][5]'', 'prev_top_scores[1][4]', 'prev_top_scores[1][3]', 'prev_top_scores[1][2]', 'prev_top_scores[1][1]', 'prev_top_scores[1][0]', 'prev_top_scores[0][6]', 'prev_top_scores[0][5]', 'prev_top_scores[0][4]', 'prev_top_scores[0][3]', 'prev_top_scores[0][2]', 'prev_top_scores[0][1]', 'prev_top_scores[0][0]', 'prev_diagonal_scores[6]', 'prev_diagonal_scores[5]', 'prev_diagonal_scores[4]', 'prev_diagonal_scores[3]', 'prev_diagonal_scores[2]', 'prev_diagonal_scores[1]', 'prev_diagonal_scores[0]'.
+Warning: In design 'controller_test_1', the same net is connected to more than one pin on submodule 'add_337'. (LINT-33)
+   Net 'n63' is connected to pins 'A[5]', 'B[5]'', 'CI'.
+Warning: In design 'controller_test_1', output port 'left_sel[14][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[13][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[12][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[11][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[10][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[9][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[8][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[7][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[6][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[5][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[4][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[3][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[2][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[1][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'left_sel[0][1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[15][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[15][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[14][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[14][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[13][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[13][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[12][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[12][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[11][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[11][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[10][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[10][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[9][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[9][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[8][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[8][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[7][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[7][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[6][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[6][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[5][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[5][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[4][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[4][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[3][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[3][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[2][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[2][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[1][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[1][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[0][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'query_letter_sel[0][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[15][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[15][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[14][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[14][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[13][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[13][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[12][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[12][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[11][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[11][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[10][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[10][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[9][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[9][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[8][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[8][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[7][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[7][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[6][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[6][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[5][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[5][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[4][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[4][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[3][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[3][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[2][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[2][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[1][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[1][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[0][1][0]' is connected directly to 'logic 1'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'database_letter_sel[0][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[15][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[15][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[14][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[14][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[13][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[13][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[12][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[12][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[11][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[11][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[10][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[10][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[9][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[9][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[8][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[8][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[7][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[7][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[6][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[6][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[5][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[5][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[4][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[4][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[3][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[3][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[2][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[2][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[1][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[1][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[0][1][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'row_in[0][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[15][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[15][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[14][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[14][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[13][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[13][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[12][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[12][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[11][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[11][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[10][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[10][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[9][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[9][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[8][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[8][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[7][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[7][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[6][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[6][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[5][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[5][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[4][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[4][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[3][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[3][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[2][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[2][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[1][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[1][0][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[0][2][0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'controller_test_1', output port 'col_in[0][0][0]' is connected directly to 'logic 0'. (LINT-52)
+1
