@@ -28,7 +28,7 @@ class clk_driver extends uvm_driver #(clk_pkt);
 
         int high_time_ns;
         int low_time_ns;
-        int clk_on;
+        bit clk_on;
 
         forever begin
             seq_item_port.get_next_item(clk_seq_item);

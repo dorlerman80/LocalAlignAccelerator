@@ -31,7 +31,6 @@ class clk_monitor extends uvm_monitor;
         int low_time_ns;
         int clk_period_ns;
         int duty_cycle_percent;
-
         int is_clk_on;
 
         forever begin
