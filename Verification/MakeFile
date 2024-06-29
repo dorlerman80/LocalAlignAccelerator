@@ -23,18 +23,34 @@ SIMV = ./simv +UVM_TESTNAME=$(TESTNAME) \
        +verbose=1 -l vcs.log \
        +vcd+vcs_dump.vcd
 
-
-
-
 x: comp 
 # x: comp run print_seed
 comp:
 	$(VCS)  +incdir+../sv \
 	    	./SW_DUT.sv \
-	    	./tests/tb_top.sv \
-			./tests/clk_rst_test.sv \
-			./tests/base_test.sv \
-			./sw_pkg.sv
+            ./sw_pkg.sv \
+            ./clk_rst_cvg_collector.sv \
+            ./sw_env.sv \
+            ./sw_if.sv \
+            ./virtual_seq.sv \
+            ./clk/clk_agent.sv \
+            ./clk/clk_driver.sv \
+            ./clk/clk_monitor.sv \
+            ./clk/clk_sqr.sv \
+            ./clk/clk_seq.sv \
+            ./clk/clk_pkt.sv \
+            ./clk/clk_cvg.sv \
+            ./rst/rst_agent.sv \
+            ./rst/rst_driver.sv \
+            ./rst/rst_monitor.sv \
+            ./rst/rst_sqr.sv \
+            ./rst/rst_seq.sv \
+            ./rst/rst_pkt.sv \
+            ./rst/rst_cvg.sv \
+            ./tests/tb_top.sv \
+		./tests/clk_rst_test.sv \
+		./tests/base_test.sv
+
 # run:
 # 	@$(SIMV) 
 
@@ -44,4 +60,3 @@ comp:
 clean:
 	@-echo "Cleaning"
 	@-rm -rf ./coverage csrc DVEfiles inter.vpd simv simv.daidir ucli.key vc_hdrs.h vcs.log .inter.vpd.uvm verdi.log tr_db.log cm.log verdi_config_file urgReport merged_coverage.ucdb coverage_report
-
