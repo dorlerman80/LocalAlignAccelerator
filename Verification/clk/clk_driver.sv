@@ -24,36 +24,29 @@ class clk_driver extends uvm_driver #(clk_pkt);
 
     virtual task run_clk();
         clk_pkt clk_seq_item;
-        // configure initial values based on test
 
         int high_time_ns;
         int low_time_ns;
         bit clk_on;
 
         forever begin
+
             seq_item_port.get_next_item(clk_seq_item);
-
-            clk_seq_item.randomize();
-
-            // get the configuration randomization or do something you want
         
             set_high_and_low_time(clk_seq_item.clock_period_ns, clk_seq_item.duty_cycle, high_time_ns, low_time_ns)
-
-            clk_on = clk_seq_item.clk_on;
-            if(!clk_on) begin
-                set_clk_off(clk_on)
-            end
 
             seq_item_port.item_done();
         end
 
         forever begin
-            //if(cut_during_toggle) - parameter configuration that decides if we want to set clk off after whole cycle or in between.
             if(clk_on) begin
                 sw_if.clk = 1'b0;
                 #(low_time_ns);
                 sw_if.clk = 1'b1;
                 #(high_time_ns);
+            end
+            else begin
+                sw_if.clk = 1'b0;
             end
         end
 
@@ -65,12 +58,6 @@ class clk_driver extends uvm_driver #(clk_pkt);
         low_time_ns = clk_period_ns - high_time_ns;
 
         `uvm_info(get_type_name(), $sformatf("High time: %0d ns, Low time: %0d ns", high_time_ns, low_time_ns), UVM_MEDIUM)
-    endtask
-
-    virtual task set_clk_off(input clk_on)
-        // get configuration value for setting the clock of time
-        #100 // <- change this
-        clk_on = 1;
     endtask
         
 
