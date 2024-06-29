@@ -7,6 +7,7 @@ package sw_pkg;
 
     // variables definitions
     `include "../Design/RTL/design_variables.vh"
+    `include "verif_utils.sv"
 
     // interface
     `include "sw_if.sv"

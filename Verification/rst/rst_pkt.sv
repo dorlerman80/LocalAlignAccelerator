@@ -1,4 +1,5 @@
 class rst_pkt extends uvm_seqeunce_item;
+
     `uvm_object_utils(rst_pkt)
 
     int rst_duration_ns;
@@ -6,7 +7,7 @@ class rst_pkt extends uvm_seqeunce_item;
     function new(string name = "rst_pkt");
         super.new(name);
     endfunction
-endclass
+endclass : rst_pkt
 
 
 
