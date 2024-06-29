@@ -8,6 +8,7 @@ package sw_pkg;
     // variables definitions
     // `include "../Design/RTL/design_variables.vh"
     `include "verif_utils.sv"
+    import verif_utils::*;
 
     // env
     `include "sw_env.sv"
