@@ -16,20 +16,17 @@ class virtual_seq extends uvm_component;
     endfunction
 
 
-    virtual task start_and_trigger_seq(clk_sqr, rst_sqr);
- 
-        fork 
-            begin
-                clk_seq.start(clk_sqr);
-            end 
+	virtual task start_and_trigger_seq(input clk_sqr clk_sqr_inst, input rst_sqr rst_sqr_inst);
+		fork
+			begin
+				clk_seq_h.start(clk_sqr_inst);
+			end
 
-            begin 
-                rst_seq.start(rst_sqr);
-            end 
-        join
-        
-    endtask
-
+			begin
+				rst_seq_h.start(rst_sqr_inst);
+			end
+		join_none // Use join_none for non-blocking fork-join
+	endtask
 
 endclass : virtual_seq
     

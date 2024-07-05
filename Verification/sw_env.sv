@@ -16,7 +16,7 @@ class sw_env extends uvm_env;
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
     clk_agent_h = clk_agent::type_id::create("clk_agent_h", this);
-    reset_agent_h = rst_agent::type_id::create("reset_agent_h", this);
+    rst_agent_h = rst_agent::type_id::create("reset_agent_h", this);
     clk_rst_cov_h = clk_rst_cvg_collector::type_id::create("clk_rst_cov_h", this);
     v_seq = virtual_seq::type_id::create("v_seq", this);
   endfunction

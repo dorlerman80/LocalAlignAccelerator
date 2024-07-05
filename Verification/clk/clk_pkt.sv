@@ -1,4 +1,4 @@
-class clk_pkt extends uvm_seqeunce_item;
+class clk_pkt extends uvm_sequence_item;
 
     `uvm_object_utils(clk_pkt)
 

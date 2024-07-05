@@ -1,3 +1,5 @@
+`include "verif_utils.vh"
+import verif_utils::*;
 class rst_seq extends uvm_sequence #(rst_pkt);
     `uvm_object_utils(rst_seq)
 
@@ -16,7 +18,7 @@ class rst_seq extends uvm_sequence #(rst_pkt);
         end
 
         // Retrieve the configuration from the config_db
-        if (!uvm_config_db#(clk_cfg_enum)::get(this, "", "rst_cfg_val", rst_cfg_val)) begin
+        if (!uvm_config_db#(rst_cfg_enum)::get(null, "", "rst_cfg_val", rst_cfg_val)) begin
             `uvm_error("CFG_ERR", "Failed to get rst_cfg_val from config_db")
         end
     endfunction
@@ -25,7 +27,7 @@ class rst_seq extends uvm_sequence #(rst_pkt);
         send_rst_pkts(rst_pkt_num, rst_cfg_val);
     endtask
 
-    virtual task send_rst_pkts(input int unsigned rst_pkt_num, input clk_cfg_enum rst_cfg_val);
+    virtual task send_rst_pkts(input int unsigned rst_pkt_num, input rst_cfg_enum rst_cfg_val);
         rst_pkt pkt;
 
         for (int i = 0; i < rst_pkt_num; i++) begin
@@ -36,7 +38,7 @@ class rst_seq extends uvm_sequence #(rst_pkt);
             set_rst_pkt(pkt);
             finish_item(pkt);
 
-            if (rst_cfg_val != DEFAULT) begin
+            if (rst_cfg_val != RST_CFG_DEFAULT) begin
                 int unsigned delay;
                 delay = $urandom_range(300, 4000);
                 #delay;
@@ -47,15 +49,17 @@ class rst_seq extends uvm_sequence #(rst_pkt);
     virtual task set_rst_pkt(rst_pkt pkt);
 
         case (rst_cfg_val)
-            DEFAULT: begin
+			RST_CFG_DEFAULT: begin
                 pkt.rst_duration_ns = 20;
             end
 
             DIFF_DURATION: begin
                 int unsigned min_rst_duration_ns , max_rst_duration_ns;
-                if (!uvm_config_int::get(this, "*", "min_rst_duration_ns", min_rst_duration_ns)) min_rst_duration_ns = 10;
-                if (!uvm_config_int::get(this, "*", "max_rst_duration_ns", max_rst_duration_ns)) max_rst_duration_ns = 100;
-
+//                if (!uvm_config_int::get(this, "*", "min_rst_duration_ns", min_rst_duration_ns)) min_rst_duration_ns = 10;
+//                if (!uvm_config_int::get(this, "*", "max_rst_duration_ns", max_rst_duration_ns)) max_rst_duration_ns = 100;
+				
+				min_rst_duration_ns = 10;
+				max_rst_duration_ns = 100;
                 pkt.rst_duration_ns = $urandom_range(min_rst_duration_ns, max_rst_duration_ns);
             end
 

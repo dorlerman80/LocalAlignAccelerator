@@ -4,7 +4,7 @@ class rst_driver extends uvm_driver #(rst_pkt);
 
     virtual sw_if sw_vif;
 
-    function new(string name, uvm_component parent);
+    function new(string name = "rst_driver", uvm_component parent = null);
         super.new(name, parent);
     endfunction : new
 
@@ -38,9 +38,9 @@ class rst_driver extends uvm_driver #(rst_pkt);
     endtask
 
     virtual task apply_rst(input rst_duration_ns);
-        sw_if.rst_n = 1'b1;
+        sw_vif.rst_n = 1'b1;
         #(rst_duration_ns);
-        sw_if.rst_n = 1'b0;
+        sw_vif.rst_n = 1'b0;
         `uvm_info(get_type_name(), "Reset applied", UVM_MEDIUM)
     endtask
     
