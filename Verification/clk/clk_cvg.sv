@@ -14,7 +14,7 @@ class clk_cvg #(int CLK_PERIOD_LOW_NS = 2,int CLK_PERIOD_HIGH_NS = 10,int DUTY_C
 
         clk_on_cp : coverpoint(clk_on)
         {
-            bins clk_on_bins [] = {[0:1]}
+            bins clk_on_bins [] = {[0:1]};
         }
 
     endgroup

@@ -12,13 +12,17 @@ class rst_agent extends uvm_agent;
 
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
-        sequencer = rst_sqr::type_id::create("sequencer",this);
-        driver = rst_driver::type_id::create("driver",this);
-        monitor = rst_monitor::type_id::create("monitor",this);
+		if(get_is_active()) begin 
+        	sequencer = rst_sqr::type_id::create("sequencer",this);
+        	driver = rst_driver::type_id::create("driver",this);
+        	monitor = rst_monitor::type_id::create("monitor",this);
+		end
     endfunction
 
     function void connect_phase(uvm_phase phase);
-        driver.seq_item_port.connect(sequencer.seq_item_export);
+		if(get_is_active()) begin 
+        	driver.seq_item_port.connect(sequencer.seq_item_export);
+		end
     endfunction 
 
     function void start_of_simulation_phase(uvm_phase phase);

@@ -1,4 +1,4 @@
-class rst_pkt extends uvm_seqeunce_item;
+class rst_pkt extends uvm_sequence_item;
 
     `uvm_object_utils(rst_pkt)
 

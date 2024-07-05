@@ -5,7 +5,7 @@ class rst_monitor extends uvm_monitor;
     virtual sw_if sw_vif;
     rst_cvg rst_cvg_h;
 
-    function new(string name, uvm_component parent);
+    function new(string name = "rst_monitor", uvm_component parent = null);
         super.new(name, parent);
     endfunction : new
 
@@ -27,22 +27,23 @@ class rst_monitor extends uvm_monitor;
         int rst_duration_ns;
 
         forever begin
-            get_rst_duration(rst_duration_ns)
-            rst_cvg_h.rst_cg.sample(rst_duration_ns)
+            get_rst_duration(rst_duration_ns);
+            rst_cvg_h.rst_cg.sample(rst_duration_ns);
         end
 
     endtask
 
     virtual task get_rst_duration(input rst_duration_ns);
+		time begin_time_rst;
+		time end_time_rst;
+        @(negedge sw_vif.rst_n);
+        begin_time_rst = $time;
 
-        @negedge(sw_vif.rst_n)
-            begin_time_rst = $time;
-
-        @posedge(sw_vif.rst_n)
-            end_time_rst = $time;
+        @(posedge sw_vif.rst_n);
+        end_time_rst = $time;
 
         rst_duration_ns = int'(end_time_rst - begin_time_rst);
             
     endtask
 
-endclass: clk_monitor
+endclass: rst_monitor
