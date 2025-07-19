@@ -1,39 +1,77 @@
+################# UVM and Simulation Settings #################
 UVM_HOME = /eda/synopsys/2020-21/RHELx86/VCS_2020.12/vcs/R-2020.12/etc/uvm-1.2
 UVM_VERBOSITY = UVM_MEDIUM
 CFLAGS = full64
 
-TESTNAME ?= base_test
-SEED ?= $(shell date +%s) # Use current timestamp as default seed
-# COV_DIR ?= ./coverage/$(TESTNAME)_$(shell date +%s) 
-# PKT_NUM ?= 10000
-# KEY_NUM ?= 100
+################# Test Configuration #################
+TESTNAME ?= start_test
+SEED ?= $(shell od -An -N8 -tu8 /dev/urandom | tr -d ' ')  # Use current timestamp as default seed
+TIMESTAMP := $(shell date +%s)
+COV_DIR ?= ./coverage
+LOG_DIR ?= ./logs  # Default to './logs' if not provided
 
+################# Config Parameters #################
+# Make sure CONFIG_PARAMS is defined when passed from run_test.sh
+CONFIG_PARAMS ?= ""  # Default to an empty string if not defined
+
+################# Commands #################
 VCS = vcs -sverilog -full64 -timescale=1ns/1ns -kdb \
-      +vpi -debug_access+all -debug_region+cell \
+      +acc +vpi -debug_access+all -debug_region+cell \
       +define+UVM_OBJECT_MUST_HAVE_CONSTRUCTOR \
       +incdir+$(UVM_HOME)/src $(UVM_HOME)/src/uvm.sv \
-      -cm_cond allops+event -cm_noconst \
       +error+2000 \
-      $(UVM_HOME)/src/dpi/uvm_dpi.cc -CFLAGS -DVCS +define+nobanner
+      -cm_cond allops+anywidth+event -cm_noconst \
+      -cm_dir $(COV_DIR)/coverage.vdb \
+      -cm line+cond+fsm+branch\
+      $(UVM_HOME)/src/dpi/uvm_dpi.cc -CFLAGS -DVCS -debug -debug_all +define+nobanner \
+      -l $(LOG_DIR)/vcs_compile.log
 
-SIMV = ./simv +UVM_TESTNAME=$(TESTNAME) \
-       +UVM_VERBOSITY=$(UVM_VERBOSITY) \
-       +ntb_random_seed=$(SEED) \
-       +UVM_TR_RECORD +UVM_LOG_RECORD \
-       -cm line+cond+fsm+branch \
-       +verbose=1 -l vcs.log \
-       +vcd+vcs_dump.vcd
 
-x: comp 
-# x: comp run print_seed
+SIMV = ./simv \
+      +UVM_TESTNAME=$(TESTNAME) \
+      +UVM_VERBOSITY=$(UVM_VERBOSITY) \
+      +ntb_random_seed=$(SEED) \
+      +UVM_TR_RECORD +UVM_LOG_RECORD \
+      -cm line+cond+fsm+branch \
+      +verbose=1 -l $(LOG_DIR)/vcs.log \
+      +vcd+$(LOG_DIR)vcs_dump.vcd \
+      $(CONFIG_PARAMS)  # Insert CONFIG_PARAMS here to pass all config parameters
+
+################# Targets #################
+.PHONY: all comp run print_seed clean
+
+################# Default Target #################
+all: comp run print_seed
+
+################# Compilation Target #################
 comp:
+	@echo -e "\033[1;32m---------------------------------------- Starting Compilation ----------------------------------------\033[0m"
 	$(VCS)  +incdir+./ \
 	        +incdir+./clk \
 	        +incdir+./rst \
 	        +incdir+./tests \
-	    	./SW_DUT.sv \
+	        +incdir+./database \
+	        +incdir+./query \
+	        +incdir+../RTL \
+	        +incdir+../ \
+	        ./design_variables.sv \
+	        ../Design/RTL/controller.sv \
+	        ../Design/RTL/flipflop.sv \
+	        ../Design/RTL/inverter.sv \
+	        ../Design/RTL/matrix_calculation.sv \
+	        ../Design/RTL/matrix_memory.sv \
+	        ../Design/RTL/max_of_n.sv \
+	        ../Design/RTL/max_registers.sv \
+	        ../Design/RTL/max.sv \
+	        ../Design/RTL/processing_element.sv \
+	        ../Design/RTL/processing_unit.sv \
+	        ../Design/RTL/sequence_buffer.sv \
+	        ../Design/RTL/traceback.sv \
+	        ../Design/RTL/top.sv \
 	    	./verif_utils.vh \
             ./sw_pkg.sv \
+            ./base_seq_in_pkt.sv \
+            ./if_checker.sv \
       		./clk/clk_pkt.sv \
       		./clk/clk_seq.sv \
       		./clk/clk_driver.sv \
@@ -48,19 +86,66 @@ comp:
       		./rst/rst_monitor.sv \
       		./rst/rst_sqr.sv \
       		./rst/rst_agent.sv \
+      		./start/start_pkt.sv \
+      		./start/start_seq.sv \
+      		./start/start_driver.sv \
+      		./start/start_cvg.sv \
+      		./start/start_monitor.sv \
+      		./start/start_sqr.sv \
+      		./start/start_agent.sv \
+      		./score/score_cvg.sv \
+      		./score/score_monitor.sv \
+      		./score/score_agent.sv \
+      		./database/db_seq_in_pkt.sv \
+            ./database/db_seq_in_seq.sv \
+            ./database/db_seq_in_driver.sv \
+            ./database/db_seq_in_monitor.sv \
+            ./database/db_seq_in_sqr.sv \
+            ./database/db_seq_in_agent.sv \
+            ./database/db_seq_out_monitor.sv \
+            ./database/db_seq_out_agent.sv \
+            ./query/qry_seq_in_pkt.sv \
+            ./query/qry_seq_in_seq.sv \
+            ./query/qry_seq_in_driver.sv \
+            ./query/qry_seq_in_monitor.sv \
+            ./query/qry_seq_in_sqr.sv \
+            ./query/qry_seq_in_agent.sv \
+            ./query/qry_seq_out_monitor.sv \
+            ./query/qry_seq_out_agent.sv \
+            ./letters_ctrl.sv \
             ./virtual_seq.sv \
             ./clk_rst_cvg_collector.sv \
+            ./control_cvg_collector.sv \
+            ./letters_cvg.sv \
+            ./sw_ref_model.sv \
             ./sw_env.sv \
+            ./sw_scoreboard.sv \
+            ./tests/base_test_cfg.sv \
             ./tests/base_test.sv \
+            ./tests/rst_test_cfg.sv \
+            ./tests/rst_test.sv \
+            ./tests/clk_test_cfg.sv \
+            ./tests/clk_test.sv \
 			./tests/clk_rst_test.sv \
-			./tests/tb_top.sv 
+			./tests/simple_test.sv \
+			./tests/start_test_cfg.sv \
+			./tests/start_test.sv \
+			./tests/letters_test_cfg.sv \
+			./tests/letters_test.sv \
+			./tests/tb_top.sv
+	@echo -e "\033[1;32m---------------------------------------- Compilation Completed ----------------------------------------\033[0m"
 
-# run:
-# 	@$(SIMV) 
+################# Simulation Run Target #################
+run:
+	@echo -e "\033[1;36m---------------------------------------- Starting Test ----------------------------------------\033[0m"
+	@$(SIMV) 
 
-# print_seed:
-# 	@echo "Seed used for this run: $(SEED)"
+################# Print Seed Target #################
+print_seed:
+	@echo "Seed used for this run: $(SEED)"
 
+################# Clean Target #################
 clean:
-	@-echo "Cleaning"
-	@-rm -rf ./coverage csrc DVEfiles inter.vpd simv simv.daidir ucli.key vc_hdrs.h vcs.log .inter.vpd.uvm verdi.log tr_db.log cm.log verdi_config_file urgReport merged_coverage.ucdb coverage_report
+	@echo -e "\033[1;33m---------------------------------------- Cleaning Workspace ----------------------------------------\033[0m"
+	@rm -rf ./coverage csrc DVEfiles inter.vpd simv simv.daidir ucli.key vc_hdrs.h vcs.log .inter.vpd.uvm verdi.log tr_db.log cm.log verdi_config_file urgReport merged_coverage.ucdb coverage_report
+	@echo -e "\033[1;33m---------------------------------------- Clean Completed ----------------------------------------\033[0m"

@@ -1,6 +1,6 @@
 class clk_rst_cvg_collector extends uvm_component;
 	
-	`uvm_component_utils(clk_rst_cvg_collector)
+	`uvm_component_param_utils(clk_rst_cvg_collector)
 	
     clk_cvg clk_cvg_h;
     rst_cvg rst_cvg_h;
