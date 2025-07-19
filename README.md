@@ -5,55 +5,35 @@
 </h1>
 
 <div align="center">
-    <p><strong>This project is a special project done in the Technion with a collaboration with Apple.</strong></p>
+    <p><strong>This project was completed as part of a B.Sc. special project at the Technion, in collaboration with Apple</strong></p>
 </div>
 
 
 <h4 align="center">
     Dor Lerman:
-    <a href="https://www.linkedin.com/in/dor-lerman-962481336/"><img src="assets/icons/Linkedin_icon_readme.png" width="30" height="30"/></a>
-    <a href="https://github.com/dorlerman80"><img src="assets/icons/GitHub_icon_readme.png" width="30" height="30"/></a>
+    <a href="https://www.linkedin.com/in/dor-lerman-962481336/"><img src="HomePageContent/Images/Linkedin_icon_readme.png" width="30" height="30"/></a>
+    <a href="https://github.com/dorlerman80"><img src="HomePageContent/Images/GitHub_icon_readme.png" width="30" height="30"/></a>
 </h4>
 
 <h4 align="center">
     Niv Bar-Tov:
-    <a href="https://www.linkedin.com/in/niv-bar-tov"><img src="assets/icons/Linkedin_icon_readme.png" width="30" height="30"/></a>
-    <a href="https://github.com/nivbartov"><img src="assets/icons/GitHub_icon_readme.png" width="30" height="30"/></a>
+    <a href="https://www.linkedin.com/in/niv-bar-tov"><img src="HomePageContent/Images/Linkedin_icon_readme.png" width="30" height="30"/></a>
+    <a href="https://github.com/nivbartov"><img src="HomePageContent/Images/GitHub_icon_readme.png" width="30" height="30"/></a>
 </h4>
-
-
-<p align="center">
-  <a href="https://colab.research.google.com/github/nivbartov/MRI_Brain_Alzheimer_Classification/blob/main/models/results.ipynb">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open results in Colab"/>
-  </a>
-  <a href="https://youtu.be/F57_KVQ65NU" target="_blank">
-    <img src="https://img.shields.io/badge/Watch%20Video-YouTube-red?logo=youtube" alt="Watch Video on YouTube"/>
-  </a>
-</p>
 
 ## 📖 Table of Contents
 
 - [Overview](#-overview)
 - [Key Features](#-key-features)
 - [Architecture](#-architecture)
-- [System Requirements](#-system-requirements)
-- [Directory Structure](#-directory-structure)
+- [Available Tests](#-available-tests)
 - [How to Build](#-how-to-build)
-- [How to Run](#-how-to-run)
-- [How to Run Regressions](#-how-to-run-regressions)
-- [Test Types](#-test-types)
-- [Simulation & Verification](#-simulation--verification)
-- [Project Goals & Constraints](#-project-goals--constraints)
-- [Authors](#-authors)
+- [How to Run a Test or Regression](#-how-to-run-a-test-or-regression)
 - [License](#-license)
-
----
 
 ## 📘 Overview
 
 LocalAlignAccelerator is a VLSI-based project that implements a dedicated hardware accelerator for the Smith-Waterman algorithm. It drastically reduces the runtime of local sequence alignment using parallel processing and efficient control logic. The accelerator was designed, verified, and synthesized as part of an academic-industry collaboration with **Apple Israel**.
-
----
 
 ## 🚀 Key Features
 
@@ -67,7 +47,6 @@ LocalAlignAccelerator is a VLSI-based project that implements a dedicated hardwa
 - Target frequency: **100 MHz**
 - Efficient **area usage**: 1.0mm × 1.0mm sq. mm.
 
----
 
 ## 🧠 Architecture
 
@@ -91,10 +70,9 @@ The top-level unit of the **LocalAlignAccelerator** consists of the following su
 6. **Controller**  
    A finite state machine (FSM) that orchestrates all other sub-units by providing necessary control signals throughout the alignment process.
 
-
 More information can be read from the [SW_accelerator_MAS.pdf](Documents/SW_Accelerator_MAS.pdf)
 in the Architecture section.
----
+
 
 ## 🧪 Available Tests
 
@@ -117,7 +95,6 @@ All tests include self-checking logic, randomized input sequences, and scoreboar
 More information can be read from the [SW_accelerator_MAS.pdf](Documents/SW_Accelerator_MAS.pdf)
 in the Verification section.
 
----
 
 ## 🔧 How to Build
 
@@ -172,7 +149,6 @@ run_test.sh valid_test
 
 After the test runs, you'll be notified if it passed or failed, and logs will be available for review.
 
----
 
 ## License
 
